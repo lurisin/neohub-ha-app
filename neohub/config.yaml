@@ -1,9 +1,9 @@
 ---
-name: NeoHub
-version: "0.0.6"
+name: "NeoHub (fork)"
+version: "0.1.0"
 slug: neohub
 description: "DSC PowerSeries Neo alarm panel management via ITv2/TLink protocol"
-url: "https://github.com/BrianHumlicek/NeoHub"
+url: "https://github.com/lurisin/NeoHub"
 arch:
   - amd64
   - aarch64
