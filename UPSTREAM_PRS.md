@@ -16,10 +16,7 @@ Every commit on the `toronto` branch is specific to this fork:
 | `Rename the app to NeoHub (fork), version 0.1.0` | Fork name, fork URL and fork version. |
 | `Point the repository and docs at the fork` | Fork URLs and fork-specific instructions. |
 | `Add UPSTREAM_PRS.md` | This file. |
-
-If the branch also carries the commit `Remove the scheduled NeoHub image bump
-workflow`, that is fork-specific too: the workflow edits `build.yaml`, which
-this fork removed, and upstream still needs it.
+| `Remove the scheduled NeoHub image bump workflow` | The workflow edits `build.yaml`, which this fork removed; upstream still needs it. |
 
 ## Generic ideas that could be offered later
 
