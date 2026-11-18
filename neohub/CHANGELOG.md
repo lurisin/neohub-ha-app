@@ -8,6 +8,8 @@
 - `full_state` and `partition_update` carry the partition `ready` flag, which is false while the partition is not disarmed. `full_state` lists `capabilities`
 - The wait for the panel's answer is limited to 8 s
 - Access codes are redacted from logged client messages
+- A refusal by the panel interface (NACK) is reported as a failed `command_result`; replies to commands without `request_id` are unchanged
+- After an unanswered request to enter programming for a zone bypass, NeoHub sends the exit request so programming is left
 - The DSC Neo integration fork v1.1.0 keeps working unchanged; v1.2.0 uses the new replies
 
 ## 0.1.0
