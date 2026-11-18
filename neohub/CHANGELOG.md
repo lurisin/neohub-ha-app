@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0
+
+- Build NeoHub fork commit 77784fa https://github.com/lurisin/NeoHub/compare/706e7f7..77784fa
+- WebSocket commands that carry a `request_id` get a `command_result` reply (success, panel response code, message). Replies to commands without `request_id` are unchanged
+- Arm rejections with panel code 1 read "Partition not ready to arm (zone open)"
+- `full_state` and `partition_update` carry the partition `ready` flag, which is false while the partition is not disarmed. `full_state` lists `capabilities`
+- The wait for the panel's answer is limited to 8 s
+- Access codes are redacted from logged client messages
+- The DSC Neo integration fork v1.1.0 keeps working unchanged; v1.2.0 uses the new replies
+
 ## 0.1.0
 
 - Rename the app to "NeoHub (fork)". It installs as a new app; stop the old NeoHub app and turn off its Start on boot first (both use host ports 3072 and 8080)

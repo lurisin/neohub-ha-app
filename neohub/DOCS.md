@@ -4,9 +4,11 @@ A real-time web portal for monitoring and controlling DSC PowerSeries Neo alarm 
 via the ITv2 (TLink) protocol.
 
 This app builds NeoHub from source at a pinned commit of the NeoHub fork
-https://github.com/lurisin/NeoHub/tree/toronto: upstream NeoHub 61a1a0e plus upstream pull
-request 45 (remove the exact disconnected WebSocket client), the `arm_home_instant` /
-`arm_away_instant` WebSocket messages and a "Stay Instant" arm button. The
+https://github.com/lurisin/NeoHub/tree/toronto (77784fa): upstream NeoHub 61a1a0e plus
+upstream pull request 45 (remove the exact disconnected WebSocket client), the
+`arm_home_instant` / `arm_away_instant` WebSocket messages, a "Stay Instant" arm button,
+`command_result` replies to WebSocket commands that carry a `request_id`, and the partition
+`ready` flag in `full_state` / `partition_update`. The
 [repository README](https://github.com/lurisin/neohub-ha-app/blob/toronto/README.md) explains
 how the app is built and how to pin a different NeoHub commit.
 
@@ -31,8 +33,8 @@ name (shown on this app's **Info** page while it runs) and port 8080.
 
 - [This app fork](https://github.com/lurisin/neohub-ha-app/tree/toronto)
 - [NeoHub fork](https://github.com/lurisin/NeoHub/tree/toronto) - the fork-only features
-  (`arm_home_instant`, `arm_away_instant`, the "Stay Instant" button) are maintained there;
-  do not report problems with them upstream
+  (`arm_home_instant`, `arm_away_instant`, the "Stay Instant" button, `command_result`, the
+  partition `ready` flag) are maintained there; do not report problems with them upstream
 - [Upstream app](https://github.com/piotrantosik/neohub-ha-app)
 - [NeoHub issues](https://github.com/BrianHumlicek/NeoHub/issues) - only for problems that also
   occur with upstream NeoHub

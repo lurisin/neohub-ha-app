@@ -17,6 +17,7 @@ Every commit on the `toronto` branch is specific to this fork:
 | `Point the repository and docs at the fork` | Fork URLs and fork-specific instructions. |
 | `Add UPSTREAM_PRS.md` | This file. |
 | `Remove the scheduled NeoHub image bump workflow` | The workflow edits `build.yaml`, which this fork removed; upstream still needs it. |
+| `Build NeoHub fork commit 77784fa, version 0.2.0` | Fork pin and fork version: a newer commit of the NeoHub fork, which upstream NeoHub does not have. |
 
 ## Generic ideas that could be offered later
 

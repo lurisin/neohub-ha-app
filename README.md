@@ -48,9 +48,9 @@ app's **Info** page while it runs) and port 8080.
 
 ## How this fork differs from the upstream app
 
-| | Upstream app 0.0.6 | This fork 0.1.0 |
+| | Upstream app 0.0.6 | This fork 0.2.0 |
 |---|---|---|
-| NeoHub code | upstream NeoHub 61a1a0e | NeoHub fork commit 706e7f7: upstream 61a1a0e + upstream pull request 45 (remove the exact disconnected WebSocket client) + `arm_home_instant` / `arm_away_instant` WebSocket messages + "Stay Instant" arm button |
+| NeoHub code | upstream NeoHub 61a1a0e | NeoHub fork commit 77784fa: upstream 61a1a0e + upstream pull request 45 (remove the exact disconnected WebSocket client) + `arm_home_instant` / `arm_away_instant` WebSocket messages + "Stay Instant" arm button + `command_result` replies to commands that carry a `request_id` + the partition `ready` flag in `full_state` / `partition_update` |
 | How NeoHub gets into the app | copied out of the prebuilt image `ghcr.io/brianhumlicek/neohub:sha-61a1a0e` | built from source in the app's Dockerfile |
 | .NET | whatever `dotnet/aspnet:8.0` was when that image was built | `dotnet/sdk:8.0.428` and `dotnet/aspnet:8.0.34` |
 | Base image | `{amd64,aarch64}-base-debian:latest` (moving tag) | `base-debian:trixie-2026.11.0` |
@@ -89,8 +89,8 @@ stages:
    `NEOHUB_PERSIST_PATH=/config`, the s6 run script that registers discovery
    and starts NeoHub).
 
-NeoHub's menu then shows the pinned commit (`GitHub 706e7f7`) and the app
-version as the build number (`Build 0.1.0`).
+NeoHub's menu then shows the pinned commit (`GitHub 77784fa`) and the app
+version as the build number (`Build 0.2.0`).
 
 .NET 8 is end of life. `8.0.428` and `8.0.34` are the last .NET 8 image tags
 and get no more fixes; moving to a newer .NET is a change to NeoHub itself.
