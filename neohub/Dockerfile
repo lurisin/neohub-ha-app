@@ -15,7 +15,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0.428 AS build
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 ARG NEOHUB_REPO=https://github.com/lurisin/NeoHub
-ARG NEOHUB_COMMIT=77784fad5348196094e2b4b8777de6edadd0dda6
+ARG NEOHUB_COMMIT=90bc9d21bd13fc4c5355c7ced9de0b6eaa92a463
 
 WORKDIR /src
 
