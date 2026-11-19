@@ -5,7 +5,7 @@
 - Build NeoHub fork commit 90bc9d2 https://github.com/lurisin/NeoHub/compare/77784fa..90bc9d2
 - NeoHub re-reads each partition's trouble flag from the panel while the panel is connected. The new per-connection setting "Trouble Refresh Interval" on the Connections page sets the seconds between re-reads: default 60, 0 = off, values from 1 to 9 count as 10. Settings saved before this version load with 60. The re-reads change only the trouble flag, and are skipped while a command, a configuration operation or programming mode is in progress
 - `full_state` partitions and `partition_update` carry `troubles` (true while the panel reports a trouble for the partition). A change of `troubles` alone sends one `partition_update`; a re-read that finds no change sends nothing. `full_state` lists the capability `partition_troubles`
-- After an arm is rejected with panel code 1, NeoHub re-reads that partition's trouble flag right away, in the background; the reply to the arm command does not wait for it
+- After an arm is rejected with panel code 1, NeoHub re-reads that partition's trouble flag right away, in the background; the reply to the arm command does not wait for it. A Trouble Refresh Interval of 0 turns this re-read off too
 - Panel notifications that NeoHub cannot decode are logged at Information once per command word per session, and with their payload in hex at Debug (length only for commands that can carry a code)
 - Arm rejections with panel code 1 read "Partition not ready to arm" (was "Partition not ready to arm (zone open)"); the panel response code is still 1
 - Live trouble notifications from the panel (0x023F) and the trouble detail messages (0x0817, 0x0823) are not implemented: their payload formats are not known, so `trouble_types` is not sent
