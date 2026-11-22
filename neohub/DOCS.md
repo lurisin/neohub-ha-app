@@ -4,19 +4,32 @@ A real-time web portal for monitoring and controlling DSC PowerSeries Neo alarm 
 via the ITv2 (TLink) protocol.
 
 This app builds NeoHub from source at a pinned commit of the NeoHub fork
-https://github.com/lurisin/NeoHub/tree/toronto (90bc9d2): upstream NeoHub 61a1a0e plus
+https://github.com/lurisin/NeoHub/tree/toronto (a40f98e): upstream NeoHub 61a1a0e plus
 upstream pull request 45 (remove the exact disconnected WebSocket client), the
 `arm_home_instant` / `arm_away_instant` WebSocket messages, a "Stay Instant" arm button,
-`command_result` replies to WebSocket commands that carry a `request_id`, the partition
-`ready` flag in `full_state` / `partition_update`, and the partition trouble flag
-`troubles` in `full_state` / `partition_update`, kept current by re-reading it from the panel
-(**Trouble Refresh Interval** on NeoHub's Connections page, default 60 seconds, 0 = off). The
+`command_result` replies to WebSocket commands that carry a `request_id` (with `code_kind` and
+short English rejection texts), the partition `ready` flag in `full_state` / `partition_update`,
+the partition trouble flag `troubles` in `full_state` / `partition_update`, kept current by
+re-reading it from the panel (**Trouble Refresh Interval** on NeoHub's Connections page, default
+60 seconds, 0 = off), the active trouble types `trouble_types`, the partition `siren` and
+`alarm_memory` flags, `keypad_alarm` messages for the keypad Fire / Auxiliary / Panic alarms, a
+fix that keeps the session when the panel reconnects before its old connection is gone, and an
+experimental `activate_fap` command (off by default, see below). The
 [repository README](https://github.com/lurisin/neohub-ha-app/blob/toronto/README.md) explains
 how the app is built and how to pin a different NeoHub commit.
 
 Requires Home Assistant Supervisor 2026.04.0 or newer. Older Supervisors pass an Alpine
 `BUILD_FROM` when `build.yaml` is missing, which overrides the Debian base image set in the
 Dockerfile.
+
+## FAP commands (experimental, off by default)
+
+NeoHub's `activate_fap` command asks the panel for a Fire, Auxiliary or Panic alarm, like the
+F / A / P keys of a keypad. **It raises a real alarm: the panel sounds it and reports it to the
+monitoring station.** NeoHub refuses it, and sends nothing to the panel, until **Allow FAP
+commands** is turned on and saved on NeoHub's Settings page (Application Settings, "Panel
+control"); while it is on, every page of NeoHub shows a red banner. It is untested on a real
+panel. Turn it on only for a test agreed with the monitoring station, and off again afterwards.
 
 ## Only one NeoHub app at a time
 
@@ -35,8 +48,10 @@ name (shown on this app's **Info** page while it runs) and port 8080.
 
 - [This app fork](https://github.com/lurisin/neohub-ha-app/tree/toronto)
 - [NeoHub fork](https://github.com/lurisin/NeoHub/tree/toronto) - the fork-only features
-  (`arm_home_instant`, `arm_away_instant`, the "Stay Instant" button, `command_result`, the
-  partition `ready` and `troubles` flags, the trouble re-reads) are maintained there; do not report problems with them upstream
+  (`arm_home_instant`, `arm_away_instant`, the "Stay Instant" button, `command_result` and
+  `code_kind`, the partition `ready`, `troubles`, `trouble_types`, `siren` and `alarm_memory`
+  values, the trouble re-reads, `keypad_alarm`, the session takeover, `activate_fap`) are
+  maintained there; do not report problems with them upstream
 - [Upstream app](https://github.com/piotrantosik/neohub-ha-app)
 - [NeoHub issues](https://github.com/BrianHumlicek/NeoHub/issues) - only for problems that also
   occur with upstream NeoHub

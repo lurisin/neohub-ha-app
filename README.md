@@ -48,14 +48,27 @@ app's **Info** page while it runs) and port 8080.
 
 ## How this fork differs from the upstream app
 
-| | Upstream app 0.0.6 | This fork 0.3.0 |
+| | Upstream app 0.0.6 | This fork 0.4.0 |
 |---|---|---|
-| NeoHub code | upstream NeoHub 61a1a0e | NeoHub fork commit 90bc9d2: upstream 61a1a0e + upstream pull request 45 (remove the exact disconnected WebSocket client) + `arm_home_instant` / `arm_away_instant` WebSocket messages + "Stay Instant" arm button + `command_result` replies to commands that carry a `request_id` + the partition `ready` flag in `full_state` / `partition_update` + the partition trouble flag `troubles` in `full_state` / `partition_update`, re-read from the panel every "Trouble Refresh Interval" seconds (default 60, 0 = off) + a log of undecoded panel notifications |
+| NeoHub code | upstream NeoHub 61a1a0e | NeoHub fork commit a40f98e: upstream 61a1a0e + upstream pull request 45 (remove the exact disconnected WebSocket client) + `arm_home_instant` / `arm_away_instant` WebSocket messages + "Stay Instant" arm button + `command_result` replies to commands that carry a `request_id` + the partition `ready` flag in `full_state` / `partition_update` + the partition trouble flag `troubles` in `full_state` / `partition_update`, re-read from the panel every "Trouble Refresh Interval" seconds (default 60, 0 = off) + a log of undecoded panel notifications + the active trouble types `trouble_types` and the partition `siren` and `alarm_memory` flags in `full_state` / `partition_update` + `keypad_alarm` messages for the keypad Fire / Auxiliary / Panic alarms + `code_kind` and clearer rejection texts in `command_result` + a fix that keeps the session when the panel reconnects before its old connection is gone + an experimental `activate_fap` command (Fire / Auxiliary / Panic), off by default, which raises a real alarm (see [FAP commands](#fap-commands-experimental)) |
 | How NeoHub gets into the app | copied out of the prebuilt image `ghcr.io/brianhumlicek/neohub:sha-61a1a0e` | built from source in the app's Dockerfile |
 | .NET | whatever `dotnet/aspnet:8.0` was when that image was built | `dotnet/sdk:8.0.428` and `dotnet/aspnet:8.0.34` |
 | Base image | `{amd64,aarch64}-base-debian:latest` (moving tag) | `base-debian:trixie-2026.11.0` |
 | `build.yaml` | yes | removed (deprecated since Supervisor 2026.04.0) |
 | Updates | a daily workflow proposes a new image tag and version | re-pin by hand (see below) |
+
+### FAP commands (experimental)
+
+The pinned NeoHub commit has an experimental WebSocket command,
+`activate_fap`, that asks the panel for a Fire, Auxiliary or Panic alarm,
+like the F / A / P keys of a keypad. **It raises a real alarm: the panel
+sounds it and reports it to the monitoring station.** It is off by default:
+NeoHub refuses it and sends nothing to the panel until **Allow FAP commands**
+is turned on and saved on NeoHub's Settings page (Application Settings,
+"Panel control"). While it is on, NeoHub shows a red banner on every page.
+It is untested on a real panel. Turn it on only for a test agreed with the
+monitoring station, and off again afterwards. The DSC Neo integration fork
+1.4.0 sends it with the action `neohub.activate_fap`.
 
 ### How the upstream app is built
 
@@ -89,8 +102,8 @@ stages:
    `NEOHUB_PERSIST_PATH=/config`, the s6 run script that registers discovery
    and starts NeoHub).
 
-NeoHub's menu then shows the pinned commit (`GitHub 90bc9d2`) and the app
-version as the build number (`Build 0.3.0`).
+NeoHub's menu then shows the pinned commit (`GitHub a40f98e`) and the app
+version as the build number (`Build 0.4.0`).
 
 .NET 8 is end of life. `8.0.428` and `8.0.34` are the last .NET 8 image tags
 and get no more fixes; moving to a newer .NET is a change to NeoHub itself.
@@ -98,7 +111,7 @@ and get no more fixes; moving to a newer .NET is a change to NeoHub itself.
 ### Re-pinning NeoHub
 
 1. Push the new NeoHub commit to `https://github.com/lurisin/NeoHub` and keep
-   it reachable from a branch or, safest, a tag (for example `v0.3.0`): every
+   it reachable from a branch or, safest, a tag (for example `v0.4.0`): every
    install, update and rebuild fetches the pinned commit from there.
 2. Set `NEOHUB_COMMIT` in `neohub/Dockerfile` to its full 40-character SHA.
    Short SHAs, branch and tag names make the build fail.
