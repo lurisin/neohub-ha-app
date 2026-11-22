@@ -19,6 +19,8 @@ Every commit on the `toronto` branch is specific to this fork:
 | `Remove the scheduled NeoHub image bump workflow` | The workflow edits `build.yaml`, which this fork removed; upstream still needs it. |
 | `Build NeoHub fork commit 77784fa, version 0.2.0` | Fork pin and fork version: a newer commit of the NeoHub fork, which upstream NeoHub does not have. |
 | `Build NeoHub fork commit 90bc9d2, version 0.3.0` | Fork pin and fork version: the NeoHub fork commit with the partition trouble flag (NeoHub fork draft E, not submitted), which upstream NeoHub does not have. |
+| `Build NeoHub fork commit a40f98e, version 0.4.0` | Fork pin and fork version: the NeoHub fork commit with the session takeover fix, the rejection texts with `code_kind`, the experimental FAP command and the trouble types, keypad alarms, siren and alarm memory (NeoHub fork drafts F, G, H and I, not submitted), which upstream NeoHub does not have. |
+| `README, DOCS: NeoHub fork a40f98e features and the FAP warning` | Describes the fork pin and the fork's experimental FAP command. |
 
 ## Generic ideas that could be offered later
 
